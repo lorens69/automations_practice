@@ -6,10 +6,10 @@ read ans
 
 case $ans in
 
-    "y")
+    "y|Y")
     echo "You are good to go."
     ;;
-    "n")
+    "n|N")
     echo "Byeee"
     exit 1
 
@@ -20,7 +20,7 @@ sleep 3
 echo "Hello there! You are about to install MySQL Server in this operating system, what do I call you?"
 read name
 
-if [-z ${name}];
+if [ -z "$name" ]; then
     echo "please provide your name and try again."
     exit 1
     
@@ -33,29 +33,33 @@ if [-z ${name}];
         sleep 2
 
         #prerequisites
-        suoyum update
+        yum update
         wget https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
         rpm -Uvh mysql80-community-release-el7-3.noarch.rpm
-
-        sleep 3
-        echo "You just finished downloading the prerequisites!"
-        sleep 1
-        echo "Continuing with the installation..."
-        sleep 2
-
-        #install mysql-server
+        
+    echo "Installing mysql server in a few seconds."
+    echo "....."
+    echo "...."
+    echo "..."
+    echo ".."
+    echo "."
+    
+    #install mysql-server
         yum install mysql-server
+        sleep 5
         systemctl start mysqld
+        sleep 5
         systemctl status mysqld
-        sleep 3
+        sleep 5
+    echo "ALL DONE! YOU HAVE SUCCESSFULLY DOWNLOADED MYSQL SERVER IN YOUR SYSTEM!"
+    sleep 2
+    echo "YOU MAY CONFIGURE YOUR MYSQL SERVER NOW! I WILL PROVIDE YOU WITH A LINK FOR GUIDANCE!"
+    sleep 2
+    echo "https://www.hostinger.ph/tutorials/how-to-install-mysql-on-centos-7"
+    sleep 1
+    echo "THANK YOU $name FOR USING THIS EXAMPLE AUTOMATION BY LAURENCE! :D"
 
-        echo "BELOW IS THE TEMPORARY PASSWORD"
-        grep 'password' /var/log/mysqld.log
-        sleep 3
-        sudo mysql_secure_installation
-
-        echo "ALL DONE! YOU HAVE SUCCESSFULLY INSTALLED MYSQL SERVER IN YOUR SYSTEM. HAVE A GREAT DAY AHEAD!"
-
-        exit 1
+    exit 1
         
     fi
+
